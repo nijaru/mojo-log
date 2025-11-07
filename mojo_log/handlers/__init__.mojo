@@ -8,3 +8,4 @@
 """Handlers for mojo-log."""
 
 from .console import ConsoleHandler
+from .file import FileHandler
