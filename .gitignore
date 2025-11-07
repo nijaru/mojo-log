@@ -33,3 +33,4 @@ env/
 .coverage
 htmlcov/
 .pytest_cache/
+CONTEXT.md
