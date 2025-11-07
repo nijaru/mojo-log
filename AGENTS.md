@@ -38,6 +38,7 @@ See `ai/STATUS.md` for current progress.
 - Latest stdlib implementations
 - Official documentation and changelogs
 - Use this for authoritative information about Mojo features
+- **Important:** Always `git pull` before referencing to ensure latest changes
 
 **Online:**
 - https://docs.modular.com/mojo/
