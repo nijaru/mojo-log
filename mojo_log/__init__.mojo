@@ -25,3 +25,4 @@ Example:
 """
 
 from .fields import LogFields, LogValue
+from .logger import Logger

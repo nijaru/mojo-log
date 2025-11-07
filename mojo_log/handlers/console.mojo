@@ -18,7 +18,7 @@ from ..handler import Handler
 # ConsoleHandler
 # ===----------------------------------------------------------------------=== #
 
-struct ConsoleHandler[FormatterType: Formatter & Movable](Handler):
+struct ConsoleHandler[FormatterType: Formatter & Movable](Handler, Movable):
     """Writes log records to stdout or stderr.
 
     Formats log records using the provided formatter and writes them to
