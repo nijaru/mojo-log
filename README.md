@@ -8,7 +8,8 @@ Structured logging library for Mojo with flexible formatters and handlers.
 
 - 🏗️ **Structured Logging** - Type-safe key-value fields (Int, Float64, String, Bool)
 - 🎨 **Multiple Formatters** - JSON and human-readable text output
-- 📝 **Flexible Handlers** - Console (stdout/stderr) output with pluggable architecture
+- 📝 **Flexible Handlers** - Console (stdout/stderr) and file output with pluggable architecture
+- 📁 **File Logging** - Write to files with append/write modes
 - 🎯 **Level Filtering** - Per-handler minimum level configuration
 - 🔧 **Composable** - Mix and match formatters and handlers
 - ⚡ **Type-Safe** - Leverages Mojo's type system and traits
@@ -228,6 +229,31 @@ ConsoleHandler[FormatterType](
 )
 ```
 
+#### FileHandler[FormatterType]
+
+Writes logs to a file.
+
+```mojo
+FileHandler[FormatterType](
+    path: String,
+    formatter: FormatterType,
+    min_level: Level = Level.INFO,
+    mode: String = "a",  # "a" for append, "w" for write
+) raises
+```
+
+**Example:**
+```mojo
+var logger = Logger(FileHandler(
+    "app.log",
+    JSONFormatter(),
+    min_level=Level.INFO,
+))
+
+logger.info("Application started")
+// Logs written to app.log in JSON format
+```
+
 ## Development
 
 ### Project Structure
@@ -242,7 +268,8 @@ mojo-log/
 │   ├── formatter.mojo         # Formatter trait
 │   ├── handlers/
 │   │   ├── __init__.mojo
-│   │   └── console.mojo       # ConsoleHandler
+│   │   ├── console.mojo       # ConsoleHandler
+│   │   └── file.mojo          # FileHandler
 │   └── formatters/
 │       ├── __init__.mojo
 │       ├── json.mojo          # JSONFormatter
@@ -251,9 +278,11 @@ mojo-log/
 │   ├── test_fields.mojo
 │   ├── test_formatters.mojo
 │   ├── test_handlers.mojo
+│   ├── test_file_handler.mojo
 │   └── test_logger.mojo
 └── examples/
-    └── basic_usage.mojo
+    ├── basic_usage.mojo
+    └── file_logging.mojo
 ```
 
 ### Running Tests
@@ -263,6 +292,7 @@ mojo-log/
 mojo run -I . tests/test_fields.mojo
 mojo run -I . tests/test_formatters.mojo
 mojo run -I . tests/test_handlers.mojo
+mojo run -I . tests/test_file_handler.mojo
 mojo run -I . tests/test_logger.mojo
 
 # Run all tests
@@ -274,19 +304,21 @@ for test in tests/test_*.mojo; do mojo run -I . "$test"; done
 MVP (v0.1.0) - ✅ Complete:
 - ✅ LogFields with Variant-based values
 - ✅ Formatter trait (JSON, Text)
-- ✅ Handler trait (Console)
+- ✅ Handler trait (Console, File)
 - ✅ Logger struct
-- ✅ Comprehensive tests
+- ✅ FileHandler with append/write modes
+- ✅ Comprehensive tests (33 tests)
 - ✅ Examples
 
-Future:
-- [ ] FileHandler with rotation
+Future (v0.2+):
+- [ ] File rotation (size-based, time-based)
+- [ ] Multiple handlers per logger
+- [ ] Timestamp formatting
+- [ ] Source location tracking
 - [ ] Async handlers
 - [ ] Custom formatters
 - [ ] Performance benchmarks
 - [ ] Additional field types (lists, nested structures)
-- [ ] Timestamp support
-- [ ] Source location tracking
 
 ## Contributing
 
