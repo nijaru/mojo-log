@@ -73,7 +73,7 @@ fn format_log_value_json(value: LogValue) -> String:
 # JSONFormatter
 # ===----------------------------------------------------------------------=== #
 
-struct JSONFormatter(Formatter):
+struct JSONFormatter(Formatter, Movable):
     """Formats log records as JSON.
 
     Produces compact JSON output suitable for structured logging systems.

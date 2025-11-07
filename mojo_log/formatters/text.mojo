@@ -45,7 +45,7 @@ fn format_log_value_text(value: LogValue) -> String:
 # TextFormatter
 # ===----------------------------------------------------------------------=== #
 
-struct TextFormatter(Formatter):
+struct TextFormatter(Formatter, Movable):
     """Formats log records as human-readable text.
 
     Produces key=value formatted output suitable for console logging.
