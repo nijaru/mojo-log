@@ -1,0 +1,35 @@
+# Mojo
+*.mojopkg
+__pycache__/
+.mojo/
+
+# Build artifacts
+build/
+dist/
+*.o
+*.a
+*.so
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
