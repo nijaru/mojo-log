@@ -1,7 +1,7 @@
 # Status
 
 ## Current Phase
-✅ MVP Complete (v0.1.0)
+✅ Enhanced MVP Complete (v0.1.0 + FileHandler)
 
 ## Completed
 
@@ -17,7 +17,7 @@
 - [x] Design Handler/Formatter trait architecture
 - [x] Document complete API design
 
-### Implementation Phase
+### Implementation Phase (MVP)
 - [x] Create project structure (mojo_log/ module)
 - [x] Implement LogFields and LogValue (Variant-based)
 - [x] Implement Formatter trait + JSONFormatter + TextFormatter
@@ -26,6 +26,12 @@
 - [x] Write comprehensive tests (fields, formatters, handlers, logger)
 - [x] Create working examples
 - [x] Write comprehensive README documentation
+
+### Post-MVP Enhancements
+- [x] Implement FileHandler with append/write modes
+- [x] Write FileHandler tests (5 test cases)
+- [x] Create file_logging.mojo example
+- [x] Update documentation for FileHandler
 
 ## Active
 None - MVP complete, ready for use
@@ -58,6 +64,7 @@ None
 **Handlers:**
 - `Handler` trait - Interface for log output
 - `ConsoleHandler[FormatterType]` - Stdout/stderr output with FileDescriptor
+- `FileHandler[FormatterType]` - File output with append/write modes
 
 **Features:**
 - Level filtering (per-handler)
@@ -70,11 +77,13 @@ None
 - test_fields.mojo: 8 tests ✅
 - test_formatters.mojo: 9 tests ✅
 - test_handlers.mojo: 5 tests ✅
+- test_file_handler.mojo: 5 tests ✅
 - test_logger.mojo: 6 tests ✅
-- **Total: 28 tests, all passing**
+- **Total: 33 tests, all passing**
 
 ### Examples
-- examples/basic_usage.mojo - Comprehensive demo ✅
+- examples/basic_usage.mojo - Console logging demo ✅
+- examples/file_logging.mojo - File logging demo ✅
 
 ### Documentation
 - README.md with quick start, usage examples, API reference ✅
@@ -115,9 +124,10 @@ None
 - ✅ Structured fields with type-safe methods
 - ✅ JSON and Text formatters
 - ✅ Console handler with stdout/stderr support
+- ✅ File handler with append/write modes
 - ✅ Level filtering per handler
 - ✅ Working examples
-- ✅ Comprehensive tests
+- ✅ Comprehensive tests (33 total)
 - ✅ Documentation
 
 ## Known Limitations
@@ -125,5 +135,5 @@ None
 - No timestamp in log output
 - No source location tracking
 - No thread safety / concurrent logging
-- No file handler / rotation
+- No file rotation (size/time-based)
 - Limited field types (Int, Float64, String, Bool only)

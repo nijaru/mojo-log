@@ -14,13 +14,14 @@
 - [x] README documentation
 
 **Not included in MVP:**
-- [ ] FileHandler (deferred to v0.2)
 - [ ] Multiple handlers per logger (deferred to v0.2)
 - [ ] Timestamp support (deferred to v0.2)
 - [ ] Source location tracking (deferred to v0.2)
 
+## Post-MVP (Completed)
+- [x] FileHandler with write/append modes
+
 ## v0.2 - Enhanced Features
-- [ ] FileHandler with basic write support
 - [ ] File rotation (size-based, time-based)
 - [ ] Multiple handlers per logger
 - [ ] Timestamp formatting in log output
