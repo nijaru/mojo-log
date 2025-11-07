@@ -134,3 +134,69 @@
 - Can enhance later if needed
 
 **Trade-off:** Won't handle all Unicode edge cases (acceptable for MVP)
+
+## Implementation Decisions
+
+### Movable Trait Constraints
+**Date:** 2025-11-07 (implementation)
+**Decision:** Generic types (FormatterType, HandlerType) require explicit `Movable` trait constraint
+**Rationale:**
+- Mojo requires explicit trait bounds for ownership transfer
+- Generic structs can't synthesize `__moveinit__` without knowing the type is Movable
+- Using `var` parameter with transfer operator `^` requires Movable constraint
+
+**Pattern:**
+```mojo
+struct Logger[HandlerType: Handler & Movable](Movable):
+    var handler: HandlerType
+    fn __init__(out self, var handler: HandlerType):
+        self.handler = handler^
+```
+
+### Single Handler Per Logger (MVP)
+**Date:** 2025-11-07 (implementation)
+**Decision:** Logger owns exactly one handler in MVP
+**Rationale:**
+- Simplifies generic type system (no variadic generic types needed)
+- Avoids List/Array of handlers with trait constraints
+- Sufficient for most use cases
+- Can add multi-handler support in v0.2
+
+**Future enhancement:** List[Handler] when Mojo's trait object system matures
+
+### Dict Iteration Syntax
+**Date:** 2025-11-07 (implementation)
+**Decision:** Use `.key` and `.value` attributes on Dict items, not subscript syntax
+**Rationale:**
+- Mojo's Dict.items() returns objects with key/value attributes
+- Not `item[]` subscript access (which was attempted and failed)
+- Pattern: `for item in dict.items(): item.key, item.value`
+
+**Documentation:** Added to implementation learnings in STATUS.md
+
+### Owned Parameter Deprecation
+**Date:** 2025-11-07 (implementation)
+**Decision:** Use `var` parameter instead of deprecated `owned` keyword
+**Rationale:**
+- Mojo deprecated `owned` parameter in favor of `var`
+- `var` with transfer operator `^` provides same semantics
+- Compiler warning guided this decision
+
+**Pattern change:**
+```mojo
+# Old (deprecated):
+fn __init__(out self, owned formatter: FormatterType):
+
+# New (correct):
+fn __init__(out self, var formatter: FormatterType):
+```
+
+### String(level) vs str(level)
+**Date:** 2025-11-07 (implementation)
+**Decision:** Use `String(level)` constructor, not `str()` function
+**Rationale:**
+- Level implements Stringable trait with __str__() method
+- Mojo pattern is to use String constructor: `String(writable_value)`
+- No global `str()` function like Python
+
+**Pattern:** `String(level)` for any Stringable type
